@@ -195,6 +195,7 @@
 
   QUnit.test('template', function(assert) {
     var basicTemplate = _.template("<%= thing %> is gettin' on my noives!");
+    console.log(basicTemplate.source.print());
     var result = basicTemplate({thing: 'This'});
     assert.equal(result, "This is gettin' on my noives!", 'can do basic attribute interpolation');
 
