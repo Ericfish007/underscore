@@ -1807,7 +1807,7 @@
         var constructor = obj.constructor;
         // 如果构造函数合法，且具有prototype属性，那么prototype指向的原型就是该obj的原型
         // 默认obj的原型为Object.prototype
-        var proto = _.isFunction(constructor) && constructor.prototype || <D-d>ObjProto;
+        var proto = _.isFunction(constructor) && constructor.prototype || ObjProto;
 
         // 如果对象有constructors属性，且当前的属性集合不存在构造函数这一属性
         var prop = 'constructor';
@@ -2306,6 +2306,7 @@
                 return SymbolProto.valueOf.call(a) === SymbolProto.valueOf.call(b);
         }
 
+        // 除此之外，a,b仅可能是对象或者数组，判断就较为复杂
         var areArrays = className === '[object Array]';
         // 非数组比较， 先判断不等的可能，提前判断出不等而不是相等，是因为判断相等可能涉及到递归
         if (!areArrays) {
@@ -2651,7 +2652,7 @@
      * 获得当前时间的时间戳
      */
     _.now = Date.now || function () {
-            return new Date().getTime();
+        return new Date().getTime();
     };
 
     // 定义一系列需要逃逸的html字符
@@ -2678,7 +2679,7 @@
             return map[match];
         };
         // Regexes for identifying a key that needs to be escaped.
-        // 动态创建正则表达式，不补货
+        // 动态创建正则表达式，不捕获
         var source = '(?:' + _.keys(map).join('|') + ')';
         // 测试正则与替换正则
         var testRegexp = RegExp(source);
@@ -2808,10 +2809,8 @@
             // offset 匹配到的子字符串在原字符串中的偏移量。
             //（比如，如果原字符串是“abcd”，匹配到的子字符串时“bc”，那么这个参数将时1）
 
-            // 进行字符逃逸
-            console.log("before", match);
+            // 开始拼接字符串。进行字符逃逸
             source += text.slice(index, offset).replace(escapeRegExp, escapeChar);
-            console.log("after",source)
             // 从下一个匹配位置开始
             index = offset + match.length;
 
@@ -2946,5 +2945,3 @@
         });
     }
 }());
-
-
